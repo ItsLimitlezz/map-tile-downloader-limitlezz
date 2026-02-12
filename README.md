@@ -82,7 +82,16 @@ Then open [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 - Map sources are configured in `config/map_sources.json`.
 - App/window branding is `MeshStudio Lite`.
+This project is licensed under the MIT License. See the file for details.
 
-## License
 
-MIT
+## Acknowledgements
+
+Leaflet: For the interactive map interface.
+Flask: For the web framework.
+SocketIO: For real-time communication.
+Mercantile: For tile calculations.
+Shapely: For geometric operations.
+Pillow: For image processing.
+
+MeshStudio Lite is a Fork of Map Tile Downloader which was created by @mattdrum (https://github.com/mattdrum) With out him this would not exist.
