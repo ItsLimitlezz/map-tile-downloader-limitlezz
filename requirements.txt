@@ -4,3 +4,4 @@ requests
 mercantile
 shapely
 pillow
+PySide6

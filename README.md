@@ -1,123 +1,65 @@
-# Map Tile Downloader
+# MeshStudio Lite (Map Tile Downloader)
 
-The Map Tile Downloader is a Flask-based web application designed to download map tiles from various sources. It allows users to select specific areas on a map, choose zoom levels, and download tiles for offline use. The application supports converting tiles to 8-bit color depth for compatibility with Meshtastic® UI Maps and provides options to view and manage cached tiles.
-
-<img width="964" alt="image" src="https://github.com/user-attachments/assets/57b041c9-2be6-4bf4-9ed4-98df24472a47" />
+MeshStudio Lite is a Python application for downloading map tiles from multiple providers. It runs as a local desktop app by default (Qt) and supports direct tile export while downloading.
 
 ## Features
 
-- **Custom Area Downloads**: Draw polygons on the map to select specific areas for tile downloading.
-- **World Basemap Downloads**: Download tiles for the entire world at zoom levels 0-7.
-- **8-bit Conversion**: Option to convert downloaded tiles to 8-bit color depth for Meshtastic® UI Maps.
-- **Cache Management**: View and delete cached tiles for different map styles.
-- **Progress Tracking**: Real-time progress bar showing downloaded, skipped, and failed tiles.
-- **Configurable Map Sources**: Easily add or modify map sources via a JSON configuration file.
-
-## Prerequisites
-
-- Python 3.8 or higher (For Windows, make sure that Python in installed with the ADD TO PATH option selected)
-- A modern web browser (Chrome, Firefox, Edge, etc.)
-- Git (for cloning the repository)
+- Custom area downloads via map drawing tools.
+- World basemap downloads (zoom 0-7).
+- 8-bit PNG conversion for Meshtastic UI maps.
+- Optional RGB565 `.bin` export for LVGL (`rgb565/z/x/y.bin`).
+- Direct output mode: tiles are copied to the selected output folder during download (no zip wait).
+- Built-in cache viewing and cache deletion.
+- Live progress panel with estimated tiles/size/time and counters.
 
 ## Installation
 
-1. Clone the Repository (or download the zip file and extract to the location of your choice):
-   
-		git clone https://github.com/mattdrum/map-tile-downloader.git
-		cd map-tile-downloader
-   
-2. Install Dependencies (Optional) :
-    	The application will automatically install required dependencies from requirements.txt on startup. However, you can manually install them using:
+1. Clone the repo:
 
-		pip install -r requirements.txt
+```bash
+git clone https://github.com/mattdrum/map-tile-downloader.git
+cd map-tile-downloader
+```
 
-3. Set Up Configuration (Optional, default sources are included) :
+2. Install dependencies:
 
-   Ensure the config/map_sources.json file is present and correctly formatted. See the Configuration section below for an example.
-   
-   
-## Configuration
-The application uses a JSON configuration file (config/map_sources.json) to define available map sources. Each entry consists of a name and a URL template for the tiles.
-
-Example map_sources.json:
-	
-		"OpenStreetMap": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-		"OpenTopoMap": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-		"Stamen Terrain": "http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png",
-		"CartoDB Positron": "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-		"CartoDB Dark Matter": "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
-	
-
-Adding a New Map Source: Simply add a new key-value pair to the JSON file with the map name and its tile URL template.
-
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
-1.	Navigate to the application directory and Run the Application:
 
-		python src/TileDL.py
-	
-	The application will start a local server at http://localhost:5000.
-	- Alternatively you may create a Batch file "StartMap.bat" to launch from windows:
- - 		@echo off
-		cd /d C:\(extractlocation)\map-tile-downloader
-		python scr/TileDL.py
-		pause
+### Local desktop app (default)
 
-3. 	Access the Web Interface:
+```bash
+python src/TileDL.py
+```
 
-	Open your web browser and navigate to http://localhost:5000.
-		
-4. 	Select Map Style:
+### Browser mode (optional)
 
-	Choose a map style from the dropdown menu. The available options are loaded from map_sources.json.
-5. 	Draw Polygons:
-	
-	Use the drawing tools to select areas on the map for which you want to download tiles.
-		
-6.	Set Zoom Levels:
-	
-	Specify the minimum and maximum zoom levels for the tiles you wish to download.
+```bash
+python src/TileDL.py --browser
+```
 
-7.	Download Tiles:
+Then open [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
-	Click "Download Tiles" to start downloading tiles for the selected areas and zoom levels.
-	Alternatively, click "Download World Basemap" to download tiles for the entire world at zoom levels 0-7.
+## Workflow
 
-8.	Monitor Progress:
+1. Pick a map style.
+2. Draw polygons (or use world basemap download).
+3. Set min/max zoom.
+4. Set output folder.
+5. Optionally enable:
+- Convert to 8 bit
+- Export RGB565 `.bin` for LVGL (automatically enforces 8-bit)
 
-	The progress bar will display the number of downloaded, skipped, and failed tiles.
+Tiles are cached locally and copied into the selected output folder as they are processed.
 
-9.	Manage Cache:
+## Notes
 
-	Check "View cached tiles" to see outlines of cached tiles on the map.
-
-	Use "Delete Cache" to remove cached tiles for the selected map style.
-
-
-## Contributing
-
-We welcome contributions to improve the Map Tile Downloader! To contribute:
-
-- Fork the Repository: Create your own fork of the project.
-- Create a Feature Branch: Work on your feature or bug fix in a separate branch.
-- Submit a Pull Request: Once your changes are ready, submit a pull request to the main repository.
-- Coding Standards: Follow PEP 8 for Python code and ensure your code is well-documented.
-- Testing: Test your changes locally before submitting a pull request.
+- Map sources are configured in `config/map_sources.json`.
+- App title and desktop window title are `MeshStudio Lite`.
 
 ## License
 
-This project is licensed under the MIT License. See the  file for details.
-
-Contact Information
-For questions, suggestions, or support, please open an issue on the GitHub repository or contact k4mbd.ham@gmail.com
-
-## Acknowledgements
-
-- Leaflet: For the interactive map interface.
-- Flask: For the web framework.
-- SocketIO: For real-time communication.
-- Mercantile: For tile calculations.
-- Shapely: For geometric operations.
-- Pillow: For image processing.
-
-Special thanks to all contributors and the open-source community!
+MIT.
