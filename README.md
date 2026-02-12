@@ -1,41 +1,68 @@
-# MeshStudio Lite (Map Tile Downloader)
+# MeshStudio Lite
 
-MeshStudio Lite is a Python application for downloading map tiles from multiple providers. It runs as a local desktop app by default (Qt) and supports direct tile export while downloading.
+MeshStudio Lite is a local-first map tile downloader for mesh devices. It supports direct tile export while downloading, with optional 8-bit PNG and LVGL RGB565 BIN output.
+
+## Screenshot
+
+![MeshStudio Lite UI](documentation/meshstudio-lite-ui.png)
 
 ## Features
 
-- Custom area downloads via map drawing tools.
-- World basemap downloads (zoom 0-7).
-- 8-bit PNG conversion for Meshtastic UI maps.
+- Local desktop app by default (Qt), with optional browser mode.
+- Draw polygons on-map and download selected zoom ranges.
+- World basemap download mode (zoom 0-7).
+- Output folder export during download (no zip wait).
+- Optional 8-bit PNG conversion.
 - Optional RGB565 `.bin` export for LVGL (`rgb565/z/x/y.bin`).
-- Direct output mode: tiles are copied to the selected output folder during download (no zip wait).
-- Built-in cache viewing and cache deletion.
-- Live progress panel with estimated tiles/size/time and counters.
+- Cache view/delete controls.
+- Live progress with estimated tiles, size, ETA, and counters.
 
 ## Installation
 
-1. Clone the repo:
+1. Clone:
 
 ```bash
 git clone https://github.com/mattdrum/map-tile-downloader.git
 cd map-tile-downloader
 ```
 
-2. Install dependencies:
+2. Install Python dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## One-Click Launchers
 
-### Local desktop app (default)
+MeshStudio Lite includes double-click launchers that install requirements and then start the app.
+
+- macOS: `Launch_MeshStudio_Lite.command`
+- Windows: `Launch_MeshStudio_Lite.bat`
+
+What they do:
+
+1. `cd` to the project folder.
+2. Run `pip install -r requirements.txt`.
+3. Launch `src/TileDL.py`.
+
+### macOS notes
+
+- If macOS blocks the launcher on first run, right-click `Launch_MeshStudio_Lite.command` and choose **Open**.
+- You can also run:
+
+```bash
+chmod +x Launch_MeshStudio_Lite.command
+```
+
+## Manual Launch
+
+### Desktop mode (default)
 
 ```bash
 python src/TileDL.py
 ```
 
-### Browser mode (optional)
+### Browser mode
 
 ```bash
 python src/TileDL.py --browser
@@ -43,23 +70,19 @@ python src/TileDL.py --browser
 
 Then open [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
-## Workflow
+## Basic Workflow
 
-1. Pick a map style.
-2. Draw polygons (or use world basemap download).
-3. Set min/max zoom.
-4. Set output folder.
-5. Optionally enable:
-- Convert to 8 bit
-- Export RGB565 `.bin` for LVGL (automatically enforces 8-bit)
-
-Tiles are cached locally and copied into the selected output folder as they are processed.
+1. Pick map style.
+2. Set output directory.
+3. Choose output format(s): `PNG`, `BIN`, or both.
+4. Draw polygons or use world basemap mode.
+5. Start download.
 
 ## Notes
 
 - Map sources are configured in `config/map_sources.json`.
-- App title and desktop window title are `MeshStudio Lite`.
+- App/window branding is `MeshStudio Lite`.
 
 ## License
 
-MIT.
+MIT
